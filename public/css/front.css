@@ -1,0 +1,246 @@
+/*通用样式*/
+* {
+    margin: 0;
+    padding: 0;
+    /* 防止点击闪烁 */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    /* 缩放网页，文字大小不变 */
+    -webkit-text-size-adjust: none;
+}
+
+body {
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0;
+    font-family: Microsoft Yahei;
+    color: #656565;
+    overflow-x: hidden;
+    min-width: 320px;
+    background-color: #F0F0F0 !important;
+}
+
+html, body {
+    height: 100%;
+}
+
+body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
+    font-family: Microsoft YaHei, '宋体', Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+}
+
+ul, li, p, span, h1, h2, h3, h4, dl, dt, dd, form, input, textarea, select {
+    margin: 0;
+    padding: 0;
+}
+
+/*去除光标*/
+input[type="button"]:focus {
+    outline: none;
+}
+
+button:focus {
+    outline: none;
+}
+
+/**去除阴影**/
+input[type="button"], button, .smallbtn, .normalbtn {
+    border: none;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    cursor: pointer;
+}
+
+/*
+input, textarea, select, button {
+	color: #666;
+	font-family: Microsoft Yahei;
+}
+input:focus {
+	outline: none;
+}
+*:focus {
+	outline: none;
+}
+*/
+img {
+    border: none;
+}
+
+ul, li {
+    list-style-type: none;
+}
+
+a:link, a:hover, a:active, a:visited {
+    color: #333;
+    text-decoration: none !important;
+    outline: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.normalbtn {
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    background-color: #169BD5;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    text-align: center;
+    line-height: 30px;
+    color: #FFF;
+}
+
+.Promptinfor {
+    text-align: center;
+    font-size: 12px !important;
+    color: red;
+    font-weight: normal;
+}
+
+.warning {
+    text-align: left;
+    font-size: 12px !important;
+    color: red;
+    font-weight: normal;
+}
+
+/**头部**/
+.multilingual-switch-box {
+    width: 100%;
+    height: 30px;
+}
+
+.multilingual-switch {
+    display: block;
+    float: right;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+.multilingual-switch ul, .multilingual-switch ul li {
+    display: block;
+}
+
+.multilingual-switch ul a{
+    float: left;
+    text-align: center;
+    border-right: 1px solid #AEAEAE;
+    padding: 0 8px;
+    line-height: 14px;
+}
+
+.multilingual-switch ul li {
+    float: left;
+    text-align: center;
+    padding: 0 8px;
+    line-height: 14px;
+}
+
+.multilingual-switch ul li:last-child {
+    border: none;
+}
+
+.multilingual-switch li:hover a {
+    color: #169BD5;
+}
+
+.header {
+    width: 100%;
+    background-color: #5e5e5e;
+    height: 32px;
+}
+
+.header .logo {
+    float: left;
+    padding-right: 8px;
+}
+
+.header .logo img {
+    height:20px;
+}
+
+.content {
+    position: relative;
+    height: auto;
+    min-height: 100%;
+
+}
+
+.input-group-btn:active {
+    border: none;
+}
+
+.header .search .input-group-btn .btn {
+    padding: 3px 12px;
+}
+
+.header .dlyzc ul, .header .dlyzc ul li {
+    display: block;
+}
+
+.header .dlyzc ul li {
+    float: left;
+    text-align: center;
+    padding: 0 3px;
+    line-height: 75px;
+}
+
+.header .dlyzc ul li:last-child {
+    border: none;
+}
+
+.header .dlyzc li:hover a {
+    color: #169BD5;
+}
+
+.wrap {
+    display: inline-block;
+    position: relative;
+    left: 20px;
+    top: 10px;
+}
+
+/**尾部**/
+footer {
+    width: 100%;
+    font-size: 13px;
+    font-weight: 400;
+    background-color: #FFF;
+    color: #AEAEAE;
+}
+
+.link {
+    line-height: 60px;
+    border-bottom: 1px solid #F2F2F2;
+}
+
+.link ul {
+    width: 50%;
+    margin: 0 auto;
+    list-style: none;
+    text-align: center;
+}
+
+.link ul li {
+    display: block;
+    width: 20%;
+    float: left;
+    min-width: 78px;
+}
+
+.link ul li a {
+    color: #AEAEAE;
+}
+
+.link ul li a:hover {
+    color: #000;
+}
+
+.cpinfo {
+    line-height: 60px;
+    text-align: center;
+}
