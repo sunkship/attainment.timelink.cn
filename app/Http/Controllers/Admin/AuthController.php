@@ -81,6 +81,13 @@ class AuthController extends AuthBaseController
 
     }
 
+    /**
+     * @return string
+     */
+    public function getAdminLogin()
+    {
+        return view('auth/loginAdmin');
+    }
 
     public function getLogout(Request $request)
     {

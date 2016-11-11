@@ -13,6 +13,7 @@ return [
     'password'  =>  '密码',     //password
     'verify_code'  =>  '验证码',     //verification code
     'login'  =>  '登录',     //login
+    'Wechat_login'  =>  '微信登录',     //login
     'change_password'  =>  '修改密码',     //change password
     'origin_password'  =>  '原始密码',     //original password
     'new_password'  =>  '新密码',     //new password

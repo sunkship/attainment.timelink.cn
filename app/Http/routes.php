@@ -22,6 +22,8 @@ Route::group(array('middleware'=>['web'],'namespace'=>'Admin'),function(){
     Route::get('password','AuthController@getPassword');
     Route::post('password','AuthController@postPassword');
     Route::get('captcha/{config?}', '\Mews\Captcha\CaptchaController@getCaptcha');
+    Route::get('/WechatLogin','WechatController@loginAction');
+    Route::get('/admin','AuthController@getAdminLogin');
 });
 
 /*

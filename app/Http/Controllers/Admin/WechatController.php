@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\User;
-use App\Wechat;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -16,72 +15,61 @@ class WechatController extends Controller
      * @param Request $request
      */
     public function loginAction(Request $request){
-        $code =$request->get('code');
+        $urlCode = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6a4516f5c033a3f3&redirect_uri=http://attainment.timelink.cn/wall&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
+        $re = $this->http($urlCode,'GET');
+        $code = $re->code;
         $access_token = $this->getAccessToken($code);
-        $url_suffix = Session::get('authParams');
-        $this->wechat($access_token,$url_suffix,$request);
+        $this->wechat($access_token,$request);
     }
 
-    private function wechat($access_token,$url_suffix,$request){
+    private function wechat($access_token,$request){
         if(!empty($access_token)){
             $token_info = json_decode($access_token,true);
             $unionid = $token_info['unionid'];
             $openid = $token_info['openid'];
-            $wechat = Wechat::where('unionid',$unionid)->first();
 
-            if($wechat != false){
-                $user = User::where("wechat_id",$wechat->id)->first();
-                if($user != false){
-                    Session::set('userId',$user->id);
-                    response(redirect('/auth?'.$url_suffix));
-                }else{
-                    Session::set('wechatId',$wechat->id);
-                    response(redirect('/binding?'.$url_suffix));
-                }
+            $user = User::where("unionid",$unionid)->first();
+            if(!empty($user)){
+                Session::set('userId',$user->id);
+                response(redirect('/wall'));
             }else{
-                if(!empty($this->refreshAccessToken())){
-                    if($this->AuthAccessToken($request,$openid)){
-                        $user_info_json = $this->getuserinfo($request,$openid);
-                        $user_info_array = json_decode($user_info_json,true);
-                        $exist_wechat = Wechat::where("openid",$openid)->first();
-
-                        if(!empty($exist_wechat)){
-                            $exist_wechat->unionid = $unionid;
-                            if(!$exist_wechat->save()){
-                                var_dump('error');
-                            }else{
-                                $user = User::where('wechat_id',$exist_wechat->id)->first();
-                            }
-                        }else{
-                            $wechat_model = new Wechat();
-                            $wechat_model->nickname = $user_info_array['nickname'];
-                            $wechat_model->openid = $user_info_array['openid'];
-                            $wechat_model->unionid = $user_info_array['unionid'];
-                            $wechat_model->headimgurl = $user_info_array['headimgurl'];
-                            $wechat_model->sex = $user_info_array['sex'];
-                            $wechat_model->city = $user_info_array['city'];
-                            $wechat_model->province = $user_info_array['province'];
-                            $wechat_model->created_time = time();
-
-                            if(!$wechat_model->save()){
-                                var_dump('error');
-                            }else{
-                                $user = User::where('wechat_id',$wechat_model->id)->first;
-                            }
-                        }
-
-                        if(!empty($user)){
-                            Session::set('userId',$user->id);
-                            response(redirect('/auth?'.$url_suffix));
-                        }else{
-                            Session::set('wechatId',$user->wechat_id);
-                            response(redirect('/binding?'.$url_suffix));
-                        }
-                    }
-                }
+                response(redirect('/login'));
             }
+            if(!empty($this->refreshAccessToken())){
+                if($this->AuthAccessToken($request,$openid)){
+                    $user_info_json = $this->getuserinfo($request,$openid);
+                    $user_info_array = json_decode($user_info_json,true);
+                    $user = User::updateOrCreate(['openid','unionid'],[
+                        'nickname'  =>$user_info_array['nickname'],
+                        'openid'    => $user_info_array['openid'],
+                        'unionid'   => $user_info_array['unionid'],
+                        'header_url'=> $user_info_array['headimgurl'],
+                        'gender'    => $user_info_array['sex'],
+                        'city'      => $user_info_array['city'],
+                        'province'  => $user_info_array['province'],
+                    ]);
+
+                    if(!$user->save()){
+                        return response(array(
+                            'error code'=> 1001,
+                            'message'   => '发生未知错误，请重试'
+                        ));
+                    }
+                    return redirect('/wall');
+                } else return response(array(
+                    'error code'=> 1002,
+                    'message'   => '获取token失败，请重试'
+                ));
+            }else return response(array(
+                'error code'=> 1003,
+                'message'   => '无法获取refreshToken，请重试'
+            ));
+
         }else{
-            echo "error";
+            return response(array(
+                'error code'=> 1002,
+                'message'   => '获取token失败，请重试'
+            ));
         }
     }
 
