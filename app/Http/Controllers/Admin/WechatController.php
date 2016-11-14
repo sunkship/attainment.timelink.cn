@@ -17,10 +17,10 @@ class WechatController extends Controller
     public function loginAction(Request $request){
         $urlCode = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6a4516f5c033a3f3&redirect_uri=http%3A%2F%2attainment.timelink.cn%2get_code&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
         $re = $this->http($urlCode,'POST');
+        dd($urlCode);
     }
     
     public function receiveWechatCode(Request $request){
-        dd("hello!");
         $code = $request->code;
         $access_token = $this->getAccessToken($code);
         $this->wechat($access_token,$request);
