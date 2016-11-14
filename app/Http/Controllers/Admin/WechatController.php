@@ -21,7 +21,7 @@ class WechatController extends Controller
     public function loginAction(Request $request){
         $redirectURL = 'http%3A%2F%2Fattainment.timelink.cn%2FWechatLogin';
         $urlCode = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->WechatInfo['WECHAT_APPID']
-            .'&redirect_uri='.$redirectURL.'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect';
+            .'&redirect_uri='.$redirectURL.'&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
         $code = $request->get('code');
         redirect($urlCode);
         if(empty($code)){
@@ -35,16 +35,17 @@ class WechatController extends Controller
     public function receiveWechatCode(Request $request){
         $code = $request->get('code');
         $access_token = $this->getAccessToken($code);
-        dd($access_token);
         $this->wechat($access_token,$request);
     }
 
     private function wechat($access_token,$request){
         if(!empty($access_token)){
             $token_info = json_decode($access_token,true);
+            dd($token_info);
+            $unionid = $token_info['unionid'];
             $openid = $token_info['openid'];
 
-            $user = User::where("openid",$openid)->first();
+            $user = User::where("unionid",$unionid)->first();
             if(!empty($user)){
                 Session::set('userId',$user->id);
                 response(redirect('/wall'));
