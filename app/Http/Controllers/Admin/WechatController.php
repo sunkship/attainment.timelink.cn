@@ -161,9 +161,8 @@ class WechatController extends Controller
      */
     public function applyNewWX($appid=null,$secret=null,$access_token = NULL, $openid = NULL, $refresh_token = NULL){
         if(is_null($appid) && is_null($secret)){
-            $wechat_array = require_once ('../config/Wechat.php');
-            $this->AppID         = $wechat_array['WECHAT_APPID'];
-            $this->AppSecret     = $wechat_array['WECHAT_SECRET'];
+            $this->AppID         = $this->WechatInfo['WECHAT_APPID'];
+            $this->AppSecret     = $this->WechatInfo['WECHAT_SECRET'];
         }else{
             $this->AppID         = $appid;
             $this->AppSecret     = $secret;
