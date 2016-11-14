@@ -28,15 +28,9 @@ class WechatController extends Controller
             return redirect($urlCode);
         }
         else {
-            return $this->receiveWechatCode($request);
+            $this->applyNewWX();
+            return $this->wechat($this->access_token);
         }
-    }
-    
-    public function receiveWechatCode(Request $request){
-        $this->applyNewWX();
-        $code = $request->get('code');
-        $access_token = $this->getAccessToken($code);
-        $this->wechat($access_token);
     }
 
     private function wechat($access_token){
@@ -56,7 +50,6 @@ class WechatController extends Controller
                 ]);
             }
 
-            dd($this->refreshAccessToken());
             if(!empty($this->refreshAccessToken())){
                 if($this->AuthAccessToken($this->access_token,$openid)){
                     $user_info_json = $this->getuserinfo($this->access_token,$openid);
