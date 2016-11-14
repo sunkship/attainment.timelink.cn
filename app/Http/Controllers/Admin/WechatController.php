@@ -85,6 +85,8 @@ class WechatController extends Controller
                             'province'  => $user_info_array['province'],
                         ]);
                     }
+                    dd($user);
+                    Session::set('userId',$user->id);
                     return redirect('/wall');
                 } else return array(
                     'error code'=> 1002,
