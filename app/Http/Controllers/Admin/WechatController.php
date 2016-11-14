@@ -20,7 +20,7 @@ class WechatController extends Controller
      * @param Request $request
      */
     public function loginAction(Request $request){
-        $redirectURL = 'http%3A%2F%2Fattainment.timelink.cn%2Flogin';
+        $redirectURL = 'http%3A%2F%2Fattainment.timelink.cn%2Fget_code';
         if(empty($request->get('code')))
         {
             $urlCode = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->WechatInfo['WECHAT_APPID']
