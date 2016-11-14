@@ -10,13 +10,21 @@ use Illuminate\Support\Facades\Session;
 
 class WechatController extends Controller
 {
+    private $WechatInfo = [
+        "WECHAT_APPID" => "wx6a4516f5c033a3f3",
+        "WECHAT_SECRET" => "c3fa52c8c082ecb5981e96fdd1999dce"
+    ];
+
     /**
      * 微信登陆回调
      * @param Request $request
      */
     public function loginAction(Request $request){
-        $urlCode = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6a4516f5c033a3f3&redirect_uri=http://attainment.timelink.cn/get_code&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
+        $redirectURL = 'http%3A%2F%2attainment.timelink.cn%2get_code';
+        $urlCode = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->WechatInfo['WECHAT_APPID']
+            .'&redirect_uri='.$redirectURL.'&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
         $re = $this->http($urlCode,'POST');
+        return $urlCode;
     }
     
     public function receiveWechatCode(Request $request){
