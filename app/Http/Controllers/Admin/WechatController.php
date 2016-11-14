@@ -56,7 +56,7 @@ class WechatController extends Controller
                 ]);
             }
             if(!empty($this->refreshAccessToken())){
-                if($this->AuthAccessToken($request,$openid)){
+                if($this->AuthAccessToken($access_token,$openid)){
                     $user_info_json = $this->getuserinfo($request,$openid);
                     $user_info_array = json_decode($user_info_json,true);
                     $user = User::updateOrCreate(['openid','unionid'],[
@@ -232,10 +232,10 @@ class WechatController extends Controller
      * @param Request $request，$openid
      * @return string
      */
-    public function AuthAccessToken($request,$openid){
+    public function AuthAccessToken($access_token,$openid){
         $url = $this->api."/sns/auth?";
         $param = array(
-            'access_token' => $request->get('access_token'),
+            'access_token' => $access_token,
             'openid'       => $openid,
         );
         $re = $this->oAuthRequest($url, 'GET', $param);
