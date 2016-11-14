@@ -28,14 +28,14 @@ class WechatController extends Controller
             return redirect($urlCode);
         }
         else {
-            dd($code);
-            return $code;
+            return $this->receiveWechatCode($request);
         }
     }
     
     public function receiveWechatCode(Request $request){
         $code = $request->get('code');
         $access_token = $this->getAccessToken($code);
+        dd($access_token);
         $this->wechat($access_token,$request);
     }
 
