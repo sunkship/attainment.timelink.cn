@@ -49,6 +49,7 @@ class WechatController extends Controller
                 Session::set('userId',$user->id);
                 response(redirect('/wall'));
             }
+            var_dump($user);
             if(!empty($this->refreshAccessToken())){
                 if($this->AuthAccessToken($request,$openid)){
                     $user_info_json = $this->getuserinfo($request,$openid);
@@ -62,7 +63,7 @@ class WechatController extends Controller
                         'city'      => $user_info_array['city'],
                         'province'  => $user_info_array['province'],
                     ]);
-
+var_dump($user);
                     if(!$user->save()){
                         return response(array(
                             'error code'=> 1001,
