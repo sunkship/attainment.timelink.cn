@@ -23,6 +23,7 @@ class WechatController extends Controller
         $code = $request->code;
         $access_token = $this->getAccessToken($code);
         $this->wechat($access_token,$request);
+        dd("hello!");
     }
 
     private function wechat($access_token,$request){
