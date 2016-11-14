@@ -24,7 +24,7 @@ class WechatController extends Controller
         $urlCode = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->WechatInfo['WECHAT_APPID']
             .'&redirect_uri='.$redirectURL.'&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
         $re = $this->http($urlCode,'POST');
-        return $urlCode;
+        dd($request);
     }
     
     public function receiveWechatCode(Request $request){
