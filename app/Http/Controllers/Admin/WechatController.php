@@ -59,8 +59,9 @@ class WechatController extends Controller
                 if($this->AuthAccessToken($this->access_token,$openid)){
                     $user_info_json = $this->getuserinfo($request,$openid);
                     $user_info_array = json_decode($user_info_json,true);
+                    dd($user_info_array);
                     $user = User::updateOrCreate(['openid','unionid'],[
-                        'nickname'  =>$user_info_array['nickname'],
+                        'nickname'  => $user_info_array['nickname'],
                         'openid'    => $user_info_array['openid'],
                         'unionid'   => $user_info_array['unionid'],
                         'header_url'=> $user_info_array['headimgurl'],
