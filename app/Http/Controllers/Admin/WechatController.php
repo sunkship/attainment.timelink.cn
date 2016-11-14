@@ -33,6 +33,7 @@ class WechatController extends Controller
     }
     
     public function receiveWechatCode(Request $request){
+        $this->applyNewWX();
         $code = $request->get('code');
         $access_token = $this->getAccessToken($code);
         $this->wechat($access_token,$request);
