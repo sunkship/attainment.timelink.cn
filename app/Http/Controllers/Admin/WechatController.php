@@ -48,6 +48,11 @@ class WechatController extends Controller
             if(!empty($user)){
                 Session::set('userId',$user->id);
                 response(redirect('/wall'));
+            }else{
+                $user = User::create([
+                    'unionid' => $unionid,
+                    'openid'  => $openid,
+                ]);
             }
             var_dump($user);
             if(!empty($this->refreshAccessToken())){
