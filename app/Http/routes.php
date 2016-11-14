@@ -42,5 +42,6 @@ Route::group(array('middleware' => ['web','auth'],'namespace'=>'Admin'), functio
     Route::get('/table','WallController@getTable');
     Route::get('/target','WallController@getTarget');
     Route::post('/write','WallController@postWrite');
+    Route::post('/get_code','WallController@receiveWechatCode');
 });
 
