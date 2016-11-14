@@ -48,7 +48,7 @@ class WechatController extends Controller
             $user = User::where("unionid",$unionid)->first();
             if(!empty($user)){
                 Session::set('userId',$user->id);
-                response(redirect('/wall'));
+                return redirect('/wall');
             }else{
                 $user = User::create([
                     'unionid' => $unionid,
@@ -67,6 +67,13 @@ class WechatController extends Controller
                         $user->gender       = $user_info_array['sex'];
                         $user->city         = $user_info_array['city'];
                         $user->province     = $user_info_array['province'];
+
+                        if(!$user->save()){
+                            return response(array(
+                                'error code'=> 1001,
+                                'message'   => '发生未知错误，请重试'
+                            ));
+                        }
                     }else{
                         $user = User::Create([
                             'username'  => $user_info_array['nickname'],
@@ -78,28 +85,21 @@ class WechatController extends Controller
                             'province'  => $user_info_array['province'],
                         ]);
                     }
-
-                    if(!$user->save()){
-                        return response(array(
-                            'error code'=> 1001,
-                            'message'   => '发生未知错误，请重试'
-                        ));
-                    }
                     return redirect('/wall');
-                } else return response(array(
+                } else return array(
                     'error code'=> 1002,
                     'message'   => '获取token失败，请重试'
-                ));
-            }else return response(array(
+                );
+            }else return array(
                 'error code'=> 1003,
                 'message'   => '无法获取refreshToken，请重试'
-            ));
+            );
 
         }else{
-            return response(array(
+            return array(
                 'error code'=> 1002,
                 'message'   => '获取token失败，请重试'
-            ));
+            );
         }
     }
 
