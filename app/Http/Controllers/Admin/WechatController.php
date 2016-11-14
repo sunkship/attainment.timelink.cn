@@ -32,6 +32,7 @@ class WechatController extends Controller
     }
 
     private function wechat($access_token,$request){
+        dd('hello');
         if(!empty($access_token)){
             $token_info = json_decode($access_token,true);
             $unionid = $token_info['unionid'];
