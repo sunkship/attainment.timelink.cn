@@ -240,7 +240,6 @@ class WechatController extends Controller
         );
         $re = $this->oAuthRequest($url, 'GET', $param);
         $arr = json_decode($re,true);
-        dd($arr);
         if(isset($arr['errcode'])){
             return $arr['errcode']==0?true:false;
         }else{
