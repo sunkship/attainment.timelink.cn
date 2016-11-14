@@ -41,7 +41,7 @@ class WechatController extends Controller
     private function wechat($access_token,$request){
         if(!empty($access_token)){
             $token_info = json_decode($access_token,true);
-            dd($token_info);
+            dd($request);
             $openid = $token_info['openid'];
 
             $user = User::where("openid",$openid)->first();
