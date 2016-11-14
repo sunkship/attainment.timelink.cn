@@ -57,6 +57,7 @@ class WechatController extends Controller
             }
 
             if(!empty($this->refreshAccessToken())){
+                dd($this->AuthAccessToken($this->access_token,$openid));
                 if($this->AuthAccessToken($this->access_token,$openid)){
                     $user_info_json = $this->getuserinfo($this->access_token,$openid);
                     $user_info_array = json_decode($user_info_json,true);
@@ -85,7 +86,6 @@ class WechatController extends Controller
                             'province'  => $user_info_array['province'],
                         ]);
                     }
-                    dd($user);
                     Session::set('userId',$user->id);
                     return redirect('/wall');
                 } else return array(
