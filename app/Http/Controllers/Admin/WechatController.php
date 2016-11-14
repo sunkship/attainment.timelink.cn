@@ -35,13 +35,13 @@ class WechatController extends Controller
     public function receiveWechatCode(Request $request){
         $code = $request->get('code');
         $access_token = $this->getAccessToken($code);
+        dd($access_token);
         $this->wechat($access_token,$request);
     }
 
     private function wechat($access_token,$request){
         if(!empty($access_token)){
             $token_info = json_decode($access_token,true);
-            dd($request);
             $openid = $token_info['openid'];
 
             $user = User::where("openid",$openid)->first();
