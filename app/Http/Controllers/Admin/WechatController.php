@@ -60,19 +60,25 @@ class WechatController extends Controller
                 if($this->AuthAccessToken($this->access_token,$openid)){
                     $user_info_json = $this->getuserinfo($this->access_token,$openid);
                     $user_info_array = json_decode($user_info_json,true);
-                    dd($openid,$unionid);
-                    $user = User::updateOrCreate([
-                        'openid' => $openid ,
-                        'unionid' => $unionid,
-                    ],[
-                        'nickname'  => $user_info_array['nickname'],
-                        'openid'    => $user_info_array['openid'],
-                        'unionid'   => $user_info_array['unionid'],
-                        'header_url'=> $user_info_array['headimgurl'],
-                        'gender'    => $user_info_array['sex'],
-                        'city'      => $user_info_array['city'],
-                        'province'  => $user_info_array['province'],
-                    ]);
+                    if(!empty($user)){
+                        $user->nickname     = $user_info_array['nickname'];
+                        $user->openid       = $user_info_array['openid'];
+                        $user->header_url   = $user_info_array['headimgurl'];
+                        $user->gender       = $user_info_array['sex'];
+                        $user->city         = $user_info_array['city'];
+                        $user->province     = $user_info_array['province'];
+                    }else{
+                        $user = User::Create([
+                            'nickname'  => $user_info_array['nickname'],
+                            'openid'    => $user_info_array['openid'],
+                            'unionid'   => $user_info_array['unionid'],
+                            'header_url'=> $user_info_array['headimgurl'],
+                            'gender'    => $user_info_array['sex'],
+                            'city'      => $user_info_array['city'],
+                            'province'  => $user_info_array['province'],
+                        ]);
+                    }
+
                     if(!$user->save()){
                         return response(array(
                             'error code'=> 1001,
