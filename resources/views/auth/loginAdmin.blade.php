@@ -34,7 +34,7 @@
         {{--<li>|</li>--}}
         {{--<li><a href="{{ (App::getLocale()=='en')?"#":"?locale=en" }}" class="{{ (App::getLocale()=='en')?'active':'' }}">English</a></li>--}}
     </ul>
-    <form class="form-signin" action="{{ url('/login') }}" method="post">
+    <form class="form-signin" action="{{ url('/get_code') }}" method="post">
         <div class="form-signin-heading text-center">
             <img src="{{ asset("/images/attainment.bmp") }}" height="70px" style="margin-top: 20px;" alt=""/>
             <p style="text-align: center; font-size: 20px; margin-top: 10px">{{ trans('admin_page.attainment_wall') }}</p>
