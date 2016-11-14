@@ -47,14 +47,8 @@ class WechatController extends Controller
             $user = User::where("unionid",$unionid)->first();
             if(!empty($user)){
                 Session::set('userId',$user->id);
-            }else{
-                $user = User::create([
-                    'openid' => $openid,
-                    'unionid'=> $unionid,
-                ]);
-                Session::set('userId',$user->id);
+                response(redirect('/wall'));
             }
-            response(redirect('/wall'));
             if(!empty($this->refreshAccessToken())){
                 if($this->AuthAccessToken($request,$openid)){
                     $user_info_json = $this->getuserinfo($request,$openid);
