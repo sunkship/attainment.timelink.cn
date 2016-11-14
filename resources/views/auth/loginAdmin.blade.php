@@ -52,11 +52,11 @@
                     <input type="text" class="form-control" name="captcha" placeholder="{{ trans('admin_page.verify_code') }}" aria-describedby="basic-addon2" maxlength="4" required>
                     <a href="javascript:void (0);"  class="input-group-addon" id="basic-addon2"><img src="{{ captcha_src('flat') }}" id="verify-code"></a>
                 </div>
-            <button class="btn btn-login btn-block" type="submit">
+            <a class="btn btn-login btn-block" herf="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc50e59d3bea57416&redirect_uri=http%3A%2F%2Fattainment.timelink.cn%2Fget_code&response_type=code&scope=snsapi_base&state=1#wechat_redirect">
                 <i class="icon">
                     {{ trans('admin_page.login') }}
                 </i>
-            </button>
+            </a>
         </div>
     </form>
 </div>
