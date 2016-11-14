@@ -46,6 +46,7 @@ class WechatController extends Controller
             $openid = $token_info['openid'];
 
             $user = User::where("unionid",$unionid)->first();
+            dd($user);
             if(!empty($user)){
                 Session::set('userId',$user->id);
                 response(redirect('/wall'));
