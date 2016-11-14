@@ -46,7 +46,6 @@ class WechatController extends Controller
             $openid = $token_info['openid'];
 
             $user = User::where("unionid",$unionid)->first();
-            dd($user);
             if(!empty($user)){
                 Session::set('userId',$user->id);
                 response(redirect('/wall'));
@@ -56,10 +55,12 @@ class WechatController extends Controller
                     'openid'  => $openid,
                 ]);
             }
+
             if(!empty($this->refreshAccessToken())){
                 if($this->AuthAccessToken($this->access_token,$openid)){
                     $user_info_json = $this->getuserinfo($this->access_token,$openid);
                     $user_info_array = json_decode($user_info_json,true);
+                    dd($openid,$unionid);
                     $user = User::updateOrCreate([
                         'openid' => $openid ,
                         'unionid' => $unionid,
