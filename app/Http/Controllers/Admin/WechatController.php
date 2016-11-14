@@ -56,7 +56,6 @@ class WechatController extends Controller
                 ]);
             }
             if(!empty($this->refreshAccessToken())){
-                dd($this->AuthAccessToken($request,$openid));
                 if($this->AuthAccessToken($request,$openid)){
                     $user_info_json = $this->getuserinfo($request,$openid);
                     $user_info_array = json_decode($user_info_json,true);
@@ -241,6 +240,7 @@ class WechatController extends Controller
         );
         $re = $this->oAuthRequest($url, 'GET', $param);
         $arr = json_decode($re,true);
+        dd($arr);
         if(isset($arr['errcode'])){
             return $arr['errcode']==0?true:false;
         }else{
