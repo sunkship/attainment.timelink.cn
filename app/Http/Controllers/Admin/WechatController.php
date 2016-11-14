@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Session;
 class WechatController extends Controller
 {
     private $WechatInfo = [
-        "WECHAT_APPID" => "wx6a4516f5c033a3f3",
-        "WECHAT_SECRET" => "c3fa52c8c082ecb5981e96fdd1999dce"
+        "WECHAT_APPID" => "wxc50e59d3bea57416",
+        "WECHAT_SECRET" => "71c4d4aa5eeb8a9b2c2efdd0fc3e1a28"
     ];
 
     /**
@@ -24,7 +24,6 @@ class WechatController extends Controller
         $urlCode = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->WechatInfo['WECHAT_APPID']
             .'&redirect_uri='.$redirectURL.'&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
         $re = $this->http($urlCode,'POST');
-        dd($request);
     }
     
     public function receiveWechatCode(Request $request){
