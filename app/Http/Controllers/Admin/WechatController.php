@@ -35,7 +35,6 @@ class WechatController extends Controller
     public function receiveWechatCode(Request $request){
         $code = $request->get('code');
         $access_token = $this->getAccessToken($code);
-        dd($access_token);
         $this->wechat($access_token,$request);
     }
 
@@ -180,8 +179,8 @@ class WechatController extends Controller
     public function getAccessToken($code = NULL){
         $url = $this->api."/sns/oauth2/access_token?";
         $param = array(
-            'appid'      => $this->AppID,
-            'secret'     => $this->AppSecret,
+            'appid'      => $this->WechatInfo['WECHAT_APPID'],
+            'secret'     => $this->WechatInfo['WECHAT_SECRET'],
             'code'       => $code,
             'grant_type' => 'authorization_code',
         );
