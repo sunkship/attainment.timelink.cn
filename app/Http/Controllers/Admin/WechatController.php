@@ -61,7 +61,7 @@ class WechatController extends Controller
                     $user_info_json = $this->getuserinfo($this->access_token,$openid);
                     $user_info_array = json_decode($user_info_json,true);
                     if(!empty($user)){
-                        $user->nickname     = $user_info_array['nickname'];
+                        $user->username     = $user_info_array['nickname'];
                         $user->openid       = $user_info_array['openid'];
                         $user->header_url   = $user_info_array['headimgurl'];
                         $user->gender       = $user_info_array['sex'];
@@ -69,7 +69,7 @@ class WechatController extends Controller
                         $user->province     = $user_info_array['province'];
                     }else{
                         $user = User::Create([
-                            'nickname'  => $user_info_array['nickname'],
+                            'username'  => $user_info_array['nickname'],
                             'openid'    => $user_info_array['openid'],
                             'unionid'   => $user_info_array['unionid'],
                             'header_url'=> $user_info_array['headimgurl'],
