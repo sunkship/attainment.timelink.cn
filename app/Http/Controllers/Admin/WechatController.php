@@ -36,10 +36,10 @@ class WechatController extends Controller
         $this->applyNewWX();
         $code = $request->get('code');
         $access_token = $this->getAccessToken($code);
-        $this->wechat($access_token,$request);
+        $this->wechat($access_token);
     }
 
-    private function wechat($access_token,$request){
+    private function wechat($access_token){
         if(!empty($access_token)){
             $token_info = json_decode($access_token,true);
             $unionid = $token_info['unionid'];
@@ -56,9 +56,8 @@ class WechatController extends Controller
                 ]);
             }
             if(!empty($this->refreshAccessToken())){
-                dd('hello');
                 if($this->AuthAccessToken($this->access_token,$openid)){
-                    $user_info_json = $this->getuserinfo($request,$openid);
+                    $user_info_json = $this->getuserinfo($this->access_token,$openid);
                     $user_info_array = json_decode($user_info_json,true);
                     dd($user_info_array);
                     $user = User::updateOrCreate(['openid','unionid'],[
@@ -93,37 +92,6 @@ class WechatController extends Controller
             ));
         }
     }
-
-    /**
-     * @param Request $request
-    */
-    public function wxAction($request){
-        $code = $request->get('code');
-
-        $this->applyNewWX('wxc50e59d3bea57416','71c4d4aa5eeb8a9b2c2efdd0fc3e1a28');
-
-        $access_token = $this->getAccessToken($code);
-
-        $authParams = array(
-            'client_id' => 'attainment',
-            'redirect_uri' => 'http://attainment.timelink.cn/auth/callback',
-            'response_type' => 'code'
-        );
-
-        $url_suffix = http_build_query($authParams);
-
-        $this->wechat($access_token,$url_suffix,$request);
-    }
-
-
-    public function showAction(){
-
-    }
-
-    public function bindingAction(){
-
-    }
-
 
     /**
      * 微信应用ID
@@ -217,13 +185,13 @@ class WechatController extends Controller
     }
 
     /**获取用户信息
-     * @param Request $request,Integer $openid
+     * @param $access_token,Integer $openid
      * @return mixed
      */
-    public function getuserinfo($request,$openid){
+    public function getuserinfo($access_token,$openid){
         $url = $this->api.'/sns/userinfo?';
         $param = array(
-            'access_token' => $request->get('access_token'),
+            'access_token' => $access_token,
             'openid'       => $openid,
         );
         return $this->oAuthRequest($url, 'GET', $param);
