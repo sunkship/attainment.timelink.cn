@@ -9,14 +9,27 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 
-class WallController extends Controller
+class WallController extends WechatController
 {
     /**show the attainment wall
+     * @param Request $request
      * @return mixed
      */
-    public function getWall(){
-        $attainments = Attainment::orderBy('id','desc')->paginate(10);
-        return view('wall/attainmentWall', compact('attainments'));
+    public function getWall(Request $request){
+        $redirectURL = 'http%3A%2F%2Fattainment.timelink.cn%2Fwall';
+        $urlCode = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->WechatInfo['WECHAT_APPID']
+            .'&redirect_uri='.$redirectURL.'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect';
+
+        $code = $request->get('code');
+        if(empty($code)) return redirect($urlCode);
+        else{
+            $access_token = $this->getAccessToken($code);
+            if($this->wechat($access_token)){
+                $attainments = Attainment::orderBy('id','desc')->paginate(10);
+                return view('wall/attainmentWall', compact('attainments'));
+            }
+            else return redirect('/login');
+        }
     }
 
     /**open target page with writing function

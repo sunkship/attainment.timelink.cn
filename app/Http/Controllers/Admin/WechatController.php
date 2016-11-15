@@ -12,7 +12,7 @@ use Laracasts\Flash\Flash;
 
 class WechatController extends Controller
 {
-    private $WechatInfo = [
+    protected $WechatInfo = [
         "WECHAT_APPID" => "wxc50e59d3bea57416",
         "WECHAT_SECRET" => "71c4d4aa5eeb8a9b2c2efdd0fc3e1a28"
     ];
@@ -37,7 +37,7 @@ class WechatController extends Controller
         $this->wechat($this->access_token);
     }
 
-    private function wechat($access_token){
+    protected function wechat($access_token){
         if(!empty($access_token)){
             $token_info = json_decode($access_token,true);
             $openid = $token_info['openid'];
@@ -46,11 +46,9 @@ class WechatController extends Controller
                 if($this->AuthAccessToken($this->access_token,$openid)){
                     $user_info_json = $this->getuserinfo($this->access_token,$openid);
                     $user_info_array = json_decode($user_info_json,true);
-                    dump($user_info_array);
-
                     $user = User::where("openid",$user_info_array['openid'])
                         ->where('unionid',$user_info_array['unionid'])->first();
-                    dd($user);
+                    
                     if(!empty($user)){
                         $user->username     = $user_info_array['nickname'];
                         $user->header_url   = $user_info_array['headimgurl'];
@@ -79,12 +77,10 @@ class WechatController extends Controller
                     }
                     Session::set('userId',$user->id);
                     if($this->signIn($user->username,"123123")){
-                        dd('gotoWall');
-                        return redirect('/wall');
+                        return true;
                     }else{
-                        dd('login fail');
                         Flash::error(trans('front.login_fail'));
-                        return redirect('/admin');
+                        return false;
                     }
                 } else return array(
                     'error code'=> 1002,
