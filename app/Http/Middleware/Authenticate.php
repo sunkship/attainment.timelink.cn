@@ -25,6 +25,8 @@ class Authenticate
             }
         }
 
+        dd('checked');
+
         return $next($request);
     }
 }
