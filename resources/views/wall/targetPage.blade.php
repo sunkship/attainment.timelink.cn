@@ -19,7 +19,9 @@
                     <div>
                         <label class="" for="attainment" style="font-size: 25px;color:#2ca02c;">{{trans('admin_page.opinion')}}</label>
                     </div>
-                    <textarea class="col-lg-12 col-md-12 col-sm-12" name="attainment" id="attainment"  rows="10" required>@if(!empty($old)){{$old}}@endif</textarea>
+                    <textarea class="col-lg-12 col-md-12 col-sm-12" name="attainment" id="attainment"  rows="10" required>
+                        @if(!empty($old)){{$old}}@endif
+                    </textarea>
                 </div>
 
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -47,5 +49,6 @@
 @endsection
 
 @section('js')
+    <script src="{{asset('/js/wangEditor-1.3.13')}}" type="text/javascript"></script>
 
 @endsection
