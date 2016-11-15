@@ -46,8 +46,10 @@ class WechatController extends Controller
                 if($this->AuthAccessToken($this->access_token,$openid)){
                     $user_info_json = $this->getuserinfo($this->access_token,$openid);
                     $user_info_array = json_decode($user_info_json,true);
+                    dump($user_info_array);
 
                     $user = User::where("openid",$user_info_array['openid'])->where('unionid',$user_info_array['unionid'])->first();
+                    dd($user);
                     if(!empty($user)){
                         $user->username     = $user_info_array['nickname'];
                         $user->header_url   = $user_info_array['headimgurl'];
@@ -74,6 +76,7 @@ class WechatController extends Controller
                             'password'  => bcrypt('123123'),
                         ]);
                     }
+                    Session::set('userId',$user->id);
                     if($this->signIn($user->username,"123123")){
                         dd('gotoWall');
                         return redirect('/wall');
@@ -82,7 +85,6 @@ class WechatController extends Controller
                         Flash::error(trans('front.login_fail'));
                         return redirect('/admin');
                     }
-                    //Session::set('userId',$user->id);
                 } else return array(
                     'error code'=> 1002,
                     'message'   => '获取token失败，请重试'
