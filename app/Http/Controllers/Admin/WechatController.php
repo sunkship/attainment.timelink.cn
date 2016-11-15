@@ -76,10 +76,15 @@ class WechatController extends Controller
                             'password'  => bcrypt('123123'),
                         ]);
                     }
-                    $this->signIn($user->username,"123123");
-                    Session::set('userId',$user->id);
+
+                    if($this->signIn($user->username,"123123")){
+                        return redirect('/wall');
+                    }else{
+                        Flash::error(trans('front.login_fail'));
+                        return redirect('/WechatLogin');
+                    }
+                    //Session::set('userId',$user->id);
                     
-                    return redirect('/wall');
                 } else return array(
                     'error code'=> 1002,
                     'message'   => '获取token失败，请重试'
@@ -103,10 +108,9 @@ class WechatController extends Controller
             'password'  => $password,
         ];
         if(Auth::attempt($data)){
-            return redirect('/wall');
+            return true;
         }else{
-            Flash::error(trans('front.login_fail'));
-            return redirect('/WechatLogin');
+            return false;
         }
     }
 
