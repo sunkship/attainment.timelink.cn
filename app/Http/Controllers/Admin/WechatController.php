@@ -76,12 +76,12 @@ class WechatController extends Controller
                             'password'  => bcrypt('123123'),
                         ]);
                     }
-
+dd($user_info_array);
                     if($this->signIn($user->username,"123123")){
                         return redirect('/wall');
                     }else{
                         Flash::error(trans('front.login_fail'));
-                        return redirect('/login');
+                        return redirect('/admin');
                     }
                     //Session::set('userId',$user->id);
                     
