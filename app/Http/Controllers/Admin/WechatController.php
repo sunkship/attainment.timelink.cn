@@ -32,7 +32,14 @@ class WechatController extends Controller
 
     public function receiveWechatCode($code){
         $access_token = $this->access_token = $this->getAccessToken($code);
+
+
+        var_dump($this->access_token,$access_token);
+
         $re = $this->wechat($access_token);
+
+        dd($this->access_token,$access_token);
+
         if($re){
             return redirect('/wall');
         }else{
@@ -209,7 +216,6 @@ class WechatController extends Controller
      * @return string
      */
     public function AuthAccessToken($access_token,$openid){
-        dd($this->access_token,$access_token);
         $url = $this->api."/sns/auth?";
         $param = array(
             'access_token' => $access_token,
