@@ -75,8 +75,10 @@ class WechatController extends Controller
                         ]);
                     }
                     if($this->signIn($user->username,"123123")){
+                        dd('gotoWall');
                         return redirect('/wall');
                     }else{
+                        dd('login fail');
                         Flash::error(trans('front.login_fail'));
                         return redirect('/admin');
                     }
