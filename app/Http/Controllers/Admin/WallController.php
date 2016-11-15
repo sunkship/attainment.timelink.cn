@@ -23,9 +23,10 @@ class WallController extends WechatController
         $code = $request->get('code');
         if(empty($code)) return redirect($urlCode);
         else{
+            dd('get_code');
             $access_token = $this->getAccessToken($code);
             if($this->wechat($access_token)){
-                dd('logined');
+                dd('login');
                 $attainments = Attainment::orderBy('id','desc')->paginate(10);
                 return view('wall/attainmentWall', compact('attainments'));
             } else {
