@@ -44,7 +44,7 @@ class WechatController extends Controller
         if(!empty($access_token)){
             $token_info = json_decode($access_token,true);
             $openid = $token_info['openid'];
-
+dd($access_token);
             if(!empty($this->refreshAccessToken())){
                 if($this->AuthAccessToken($this->access_token,$openid)){
                     $user_info_json = $this->getuserinfo($this->access_token,$openid);
