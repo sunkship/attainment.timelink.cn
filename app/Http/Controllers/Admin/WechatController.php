@@ -45,9 +45,10 @@ class WechatController extends Controller
             $token_info = json_decode($access_token,true);
             $openid = $token_info['openid'];
 
-            if(!empty($this->refreshAccessToken())){
-                if($this->AuthAccessToken($access_token,$openid)){
-                    $user_info_json = $this->getuserinfo($access_token,$openid);
+            if(!empty($this->refreshAccessToken())){       
+                dd($this->access_token,$access_token);
+                if($this->AuthAccessToken($this->access_token,$openid)){
+                    $user_info_json = $this->getuserinfo($this->access_token,$openid);
                     $user_info_array = json_decode($user_info_json,true);
                     $user = User::where("openid",$user_info_array['openid'])
                         ->where('unionid',$user_info_array['unionid'])->where('id','<>',1)->first();
