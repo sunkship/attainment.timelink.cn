@@ -34,7 +34,13 @@ class WechatController extends Controller
         $this->applyNewWX();
         $code = $request->get('code');
         $this->access_token = $this->getAccessToken($code);
-        $this->wechat($this->access_token);
+        $re = $this->wechat($this->access_token);
+        dd($re);
+        if($re){
+            redirect('/wall');
+        }else{
+            redirect('/login');
+        }
     }
 
     protected function wechat($access_token){
@@ -80,7 +86,10 @@ class WechatController extends Controller
                         return true;
                     }else{
                         Flash::error(trans('front.login_fail'));
-                        return false;
+                        return array(
+                            'error code'=> 1004,
+                            'message'   => '用户名或密码错误，请重试'
+                        );
                     }
                 } else return array(
                     'error code'=> 1002,
