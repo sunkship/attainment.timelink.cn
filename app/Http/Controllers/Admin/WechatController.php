@@ -22,7 +22,6 @@ class WechatController extends Controller
         $redirectURL = 'http%3A%2F%2Fattainment.timelink.cn%2FWechatLogin';
         $urlCode = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->WechatInfo['WECHAT_APPID']
             .'&redirect_uri='.$redirectURL.'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect';
-        redirect($urlCode);
         $code = $request->get('code');
         if(empty($code)){
             return redirect($urlCode);
@@ -165,6 +164,7 @@ class WechatController extends Controller
 
         $re = $this->oAuthRequest($url, 'GET', $param);
         $arr = json_decode($re,true);
+        dd($arr);
         $this->refresh_token = isset($arr['refresh_token'])?$arr['refresh_token']:'';
         $this->openid = isset($arr['openid'])?$arr['openid']:'';
         return $re;
