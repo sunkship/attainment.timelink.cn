@@ -79,7 +79,6 @@ class WechatController extends Controller
                             'password'  => bcrypt('123123'),
                         ]);
                     }
-                    dd($user,$user_info_array);
                     Session::set('userId',$user->id);
                     if($this->signIn($user->username,"123123")){
                         return true;
