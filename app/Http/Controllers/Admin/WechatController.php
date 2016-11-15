@@ -35,7 +35,6 @@ class WechatController extends Controller
         $code = $request->get('code');
         $this->access_token = $this->getAccessToken($code);
         $re = $this->wechat($this->access_token);
-        dd($re);
         if($re){
             redirect('/wall');
         }else{
@@ -54,7 +53,7 @@ class WechatController extends Controller
                     $user_info_array = json_decode($user_info_json,true);
                     $user = User::where("openid",$user_info_array['openid'])
                         ->where('unionid',$user_info_array['unionid'])->where('id','<>',1)->first();
-                    
+                    dd($user,$user_info_array);
                     if(!empty($user)){
                         $user->username     = $user_info_array['nickname'];
                         $user->header_url   = $user_info_array['headimgurl'];
