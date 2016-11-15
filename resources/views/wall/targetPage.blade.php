@@ -17,7 +17,7 @@
             <form action="{{ url('/write') }}" method="post">
                 <div style="align-content: center">
                     <label class="" for="attainment" style="font-size: 25px;color:#2ca02c;">{{trans('admin_page.opinion')}}</label>
-                    <textarea class="col-lg-12 col-md-12 col-sm-12" name="attainment" id="attainment" cols="auto" rows="10" required>
+                    <textarea class="col-lg-12 col-md-12 col-sm-12" name="attainment" id="attainment" cols="50" rows="10" required>
                         @if(!empty($old))
                             {{$old}}
                         @endif
