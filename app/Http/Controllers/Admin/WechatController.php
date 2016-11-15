@@ -34,6 +34,7 @@ class WechatController extends Controller
         $this->applyNewWX();
         $code = $request->get('code');
         $access_token = $this->getAccessToken($code);
+        dd($access_token);
         $this->wechat($access_token);
     }
 
