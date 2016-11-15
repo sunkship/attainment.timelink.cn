@@ -164,7 +164,6 @@ class WechatController extends Controller
 
         $re = $this->oAuthRequest($url, 'GET', $param);
         $arr = json_decode($re,true);
-        dd($arr);
         $this->refresh_token = isset($arr['refresh_token'])?$arr['refresh_token']:'';
         $this->openid = isset($arr['openid'])?$arr['openid']:'';
         return $re;
@@ -215,6 +214,7 @@ class WechatController extends Controller
         );
         $re = $this->oAuthRequest($url, 'GET', $param);
         $arr = json_decode($re,true);
+        dd($arr);
         if(isset($arr['errcode'])){
             return $arr['errcode']==0?true:false;
         }else{
