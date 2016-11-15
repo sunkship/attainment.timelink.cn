@@ -34,6 +34,7 @@ class WechatController extends Controller
         $this->applyNewWX();
         $access_token = $this->getAccessToken($code);
         $re = $this->wechat($access_token);
+        dd($re);
         if($re){
             return redirect('/wall');
         }else{
