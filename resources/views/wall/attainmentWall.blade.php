@@ -20,7 +20,7 @@
                         </div>
                         <div class="panel-body">
                             <label for="input_target">输入目标网页：</label>
-                            <input type="text" id="input_target" name="target" style="width: 60%" onchange="change_target()" required>
+                            <textarea id="input_target" name="target" style="width: 60%" onchange="change_target()" required></textarea>
                             <div>
                                 <a id="target" href="{{url('/newTarget')}}">
                                     <button class="btn btn-success">去写心得</button>
