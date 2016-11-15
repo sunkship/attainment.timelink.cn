@@ -65,7 +65,7 @@ class WechatController extends Controller
                             );
                         }
                     }else{
-                        $user = User::Create([
+                        $user = User::create([
                             'username'  => $user_info_array['nickname'],
                             'openid'    => $user_info_array['openid'],
                             'unionid'   => $user_info_array['unionid'],
