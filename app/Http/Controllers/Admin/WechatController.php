@@ -53,7 +53,6 @@ class WechatController extends Controller
                     $user_info_array = json_decode($user_info_json,true);
                     $user = User::where("openid",$user_info_array['openid'])
                         ->where('unionid',$user_info_array['unionid'])->where('id','<>',1)->first();
-                    dd($user,$user_info_array);
                     if(!empty($user)){
                         $user->username     = $user_info_array['nickname'];
                         $user->header_url   = $user_info_array['headimgurl'];
@@ -80,6 +79,7 @@ class WechatController extends Controller
                             'password'  => bcrypt('123123'),
                         ]);
                     }
+                    dd($user,$user_info_array);
                     Session::set('userId',$user->id);
                     if($this->signIn($user->username,"123123")){
                         return true;
