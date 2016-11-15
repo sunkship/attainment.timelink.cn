@@ -47,7 +47,6 @@ class WechatController extends Controller
 
             if(!empty($this->refreshAccessToken())){
                 if($this->AuthAccessToken($this->access_token,$openid)){
-                    dd($this->access_token,$access_token);
                     $user_info_json = $this->getuserinfo($this->access_token,$openid);
                     $user_info_array = json_decode($user_info_json,true);
                     $user = User::where("openid",$user_info_array['openid'])
@@ -210,6 +209,7 @@ class WechatController extends Controller
      * @return string
      */
     public function AuthAccessToken($access_token,$openid){
+        dd($this->access_token,$access_token);
         $url = $this->api."/sns/auth?";
         $param = array(
             'access_token' => $access_token,
