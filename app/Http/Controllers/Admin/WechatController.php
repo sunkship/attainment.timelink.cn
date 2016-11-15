@@ -45,7 +45,7 @@ class WechatController extends Controller
             $token_info = json_decode($access_token,true);
             $openid = $token_info['openid'];
 
-            if(!empty($this->refreshAccessToken())){       
+            if(!empty($this->refreshAccessToken())){
                 dd($this->access_token,$access_token);
                 if($this->AuthAccessToken($this->access_token,$openid)){
                     $user_info_json = $this->getuserinfo($this->access_token,$openid);
@@ -187,6 +187,7 @@ class WechatController extends Controller
         );
         $re = $this->oAuthRequest($url, 'GET', $param);
         $arr = json_decode($re,true);
+        dd($arr);
         $this->access_token = isset($arr['access_token'])?$arr['access_token']:'';
         return $re;
     }
