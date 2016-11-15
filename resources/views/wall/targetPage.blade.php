@@ -17,11 +17,7 @@
             <form action="{{ url('/write') }}" method="post">
                 <div style="align-content: center">
                     <label class="" for="attainment" style="font-size: 25px;color:#2ca02c;">{{trans('admin_page.opinion')}}</label>
-                    <textarea class="col-lg-12 col-md-12 col-sm-12" name="attainment" id="attainment" cols="77" rows="10" required>
-                        @if(!empty($old))
-                            {{$old}}
-                        @endif
-                    </textarea>
+
                 </div>
 
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
