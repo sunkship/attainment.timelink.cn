@@ -33,7 +33,6 @@ class WechatController extends Controller
     public function receiveWechatCode($code){
         $access_token = $this->access_token = $this->getAccessToken($code);
         $re = $this->wechat($access_token);
-        dd($re);
         if($re){
             return redirect('/wall');
         }else{
@@ -48,6 +47,7 @@ class WechatController extends Controller
 
             if(!empty($this->refreshAccessToken())){
                 if($this->AuthAccessToken($this->access_token,$openid)){
+                    dd($this->access_token,$access_token);
                     $user_info_json = $this->getuserinfo($this->access_token,$openid);
                     $user_info_array = json_decode($user_info_json,true);
                     $user = User::where("openid",$user_info_array['openid'])
@@ -88,7 +88,7 @@ class WechatController extends Controller
                             'message'   => '用户名或密码错误，请重试'
                         );
                     }
-                } else return array(
+                }else return array(
                     'error code'=> 1002,
                     'message'   => '获取token失败，请重试'
                 );
