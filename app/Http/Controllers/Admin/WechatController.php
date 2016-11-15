@@ -81,7 +81,7 @@ class WechatController extends Controller
                         return redirect('/wall');
                     }else{
                         Flash::error(trans('front.login_fail'));
-                        return redirect('/WechatLogin');
+                        return redirect('/login');
                     }
                     //Session::set('userId',$user->id);
                     
