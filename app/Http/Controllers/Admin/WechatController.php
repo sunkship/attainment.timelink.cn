@@ -31,7 +31,6 @@ class WechatController extends Controller
     }
 
     public function receiveWechatCode($code){
-        //$this->applyNewWX();
         $access_token = $this->getAccessToken($code);
         $re = $this->wechat($access_token);
         if($re){
@@ -151,23 +150,6 @@ class WechatController extends Controller
     private $access_token;
     private $openid;
     private $refresh_token;
-
-    /**
-     * 新建weixin对象
-     */
-    public function applyNewWX($appid=null,$secret=null,$access_token = NULL, $openid = NULL, $refresh_token = NULL){
-        if(is_null($appid) && is_null($secret)){
-            $this->AppID         = $this->WechatInfo['WECHAT_APPID'];
-            $this->AppSecret     = $this->WechatInfo['WECHAT_SECRET'];
-        }else{
-            $this->AppID         = $appid;
-            $this->AppSecret     = $secret;
-        }
-
-        $this->access_token  = $access_token;
-        $this->openid        = $openid;
-        $this->refresh_token = $refresh_token;
-    }
 
     /**获取access_token代码
      * @param null $code
