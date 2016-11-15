@@ -36,9 +36,9 @@ class WechatController extends Controller
         $this->access_token = $this->getAccessToken($code);
         $re = $this->wechat($this->access_token);
         if($re){
-            redirect('/wall');
+            return redirect('/wall');
         }else{
-            redirect('/login');
+            return redirect('/login');
         }
     }
 
