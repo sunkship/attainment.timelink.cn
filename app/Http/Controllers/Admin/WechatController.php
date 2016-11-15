@@ -38,7 +38,6 @@ class WechatController extends Controller
     }
 
     private function wechat($access_token){
-        dd($access_token);
         if(!empty($access_token)){
             $token_info = json_decode($access_token,true);
             $unionid = $token_info['unionid'];
@@ -50,6 +49,7 @@ class WechatController extends Controller
                     $user_info_json = $this->getuserinfo($this->access_token,$openid);
                     $user_info_array = json_decode($user_info_json,true);
 
+                    dd($user_info_array);
                     if(!empty($user)){
                         $user->username     = $user_info_array['nickname'];
                         $user->openid       = $user_info_array['openid'];
