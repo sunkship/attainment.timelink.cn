@@ -32,8 +32,8 @@ class WechatController extends Controller
 
     public function receiveWechatCode($code){
         $this->applyNewWX();
-        $this->access_token = $this->getAccessToken($code);
-        $re = $this->wechat($this->access_token);
+        $access_token = $this->getAccessToken($code);
+        $re = $this->wechat($access_token);
         if($re){
             return redirect('/wall');
         }else{
