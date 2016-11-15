@@ -21,7 +21,7 @@ class WechatController extends Controller
      * 微信登陆回调
      */
     public function loginAction(Request $request){
-        $redirectURL = 'http%3A%2F%2Fattainment.timelink.cn%2FWall';
+        $redirectURL = 'http%3A%2F%2Fattainment.timelink.cn%2Fwall';
         $urlCode = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->WechatInfo['WECHAT_APPID']
             .'&redirect_uri='.$redirectURL.'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect';
 
