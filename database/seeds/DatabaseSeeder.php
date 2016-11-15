@@ -17,11 +17,5 @@ class DatabaseSeeder extends Seeder
             'passport_id'   =>'7',
             'password'      => bcrypt('12341234'),
         ]);
-        DB::table('attainment')->insert([
-            'user_id'   =>'1',
-            'url'       =>'https://www.baidu.com/',
-            'content'   =>'这是一个神奇的网站。',
-            'created_at'=>date("Y-m-d H:i:s"),
-        ]);
     }
 }
