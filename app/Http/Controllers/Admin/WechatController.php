@@ -31,7 +31,7 @@ class WechatController extends Controller
     }
 
     public function receiveWechatCode($code){
-        $this->applyNewWX();
+        //$this->applyNewWX();
         $access_token = $this->getAccessToken($code);
         $re = $this->wechat($access_token);
         if($re){
@@ -44,6 +44,7 @@ class WechatController extends Controller
     protected function wechat($access_token){
         if(!empty($access_token)){
             $token_info = json_decode($access_token,true);
+            dd($token_info);
             $openid = $token_info['openid'];
 
             if(!empty($this->refreshAccessToken())){
