@@ -44,22 +44,11 @@ class WechatController extends Controller
             $openid = $token_info['openid'];
             $user = User::where("unionid",$unionid)->first();
 
-            if(!empty($user)){
-                Session::set('userId',$user->id);
-                $this->signIn($user->username,$user->password);
-                return redirect('/wall');
-            }else{
-                $user = User::create([
-                    'unionid' => $unionid,
-                    'openid'  => $openid,
-                ]);
-            }
-dd($user);
             if(!empty($this->refreshAccessToken())){
                 if($this->AuthAccessToken($this->access_token,$openid)){
                     $user_info_json = $this->getuserinfo($this->access_token,$openid);
                     $user_info_array = json_decode($user_info_json,true);
-                    dd($user_info_array);
+
                     if(!empty($user)){
                         $user->username     = $user_info_array['nickname'];
                         $user->openid       = $user_info_array['openid'];
@@ -87,8 +76,10 @@ dd($user);
                             'password'  => "123123",
                         ]);
                     }
+                    $this->signIn($user->username,$user->password);
                     Session::set('userId',$user->id);
-
+                    dd(Auth::check());
+                    return redirect('/wall');
                 } else return array(
                     'error code'=> 1002,
                     'message'   => '获取token失败，请重试'
