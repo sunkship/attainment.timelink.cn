@@ -27,12 +27,11 @@ class WechatController extends Controller
 
         $code = $request->get('code');
         if(empty($code)) return redirect($urlCode);
-        else return $this->receiveWechatCode($request);
+        else return $this->receiveWechatCode($code);
     }
 
-    public function receiveWechatCode(Request $request){
+    public function receiveWechatCode($code){
         $this->applyNewWX();
-        $code = $request->get('code');
         $this->access_token = $this->getAccessToken($code);
         $re = $this->wechat($this->access_token);
         if($re){
