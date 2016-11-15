@@ -78,7 +78,7 @@ class WechatController extends Controller
                     }
                     $this->signIn($user->username,"123123");
                     Session::set('userId',$user->id);
-                    dd($user->username,$user->password);
+                    dd(Auth::check());
                     return redirect('/wall');
                 } else return array(
                     'error code'=> 1002,
