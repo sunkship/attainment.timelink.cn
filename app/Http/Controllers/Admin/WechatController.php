@@ -31,7 +31,8 @@ class WechatController extends Controller
     }
 
     public function receiveWechatCode($code){
-        $access_token = $this->access_token = $this->getAccessToken($code);
+        $this->applyNewWX();
+        $access_token = $this->getAccessToken($code);
         $re = $this->wechat($access_token);
         if($re){
             return redirect('/wall');
@@ -46,7 +47,6 @@ class WechatController extends Controller
             $openid = $token_info['openid'];
 
             if(!empty($this->refreshAccessToken())){
-                dd($this->access_token,$access_token);
                 if($this->AuthAccessToken($this->access_token,$openid)){
                     $user_info_json = $this->getuserinfo($this->access_token,$openid);
                     $user_info_array = json_decode($user_info_json,true);
@@ -88,7 +88,7 @@ class WechatController extends Controller
                             'message'   => '用户名或密码错误，请重试'
                         );
                     }
-                }else return array(
+                } else return array(
                     'error code'=> 1002,
                     'message'   => '获取token失败，请重试'
                 );
@@ -152,6 +152,23 @@ class WechatController extends Controller
     private $openid;
     private $refresh_token;
 
+    /**
+     * 新建weixin对象
+     */
+    public function applyNewWX($appid=null,$secret=null,$access_token = NULL, $openid = NULL, $refresh_token = NULL){
+        if(is_null($appid) && is_null($secret)){
+            $this->AppID         = $this->WechatInfo['WECHAT_APPID'];
+            $this->AppSecret     = $this->WechatInfo['WECHAT_SECRET'];
+        }else{
+            $this->AppID         = $appid;
+            $this->AppSecret     = $secret;
+        }
+
+        $this->access_token  = $access_token;
+        $this->openid        = $openid;
+        $this->refresh_token = $refresh_token;
+    }
+
     /**获取access_token代码
      * @param null $code
      * @return mixed
@@ -187,7 +204,6 @@ class WechatController extends Controller
         );
         $re = $this->oAuthRequest($url, 'GET', $param);
         $arr = json_decode($re,true);
-        dd($arr);
         $this->access_token = isset($arr['access_token'])?$arr['access_token']:'';
         return $re;
     }
