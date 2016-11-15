@@ -90,7 +90,7 @@ class WechatController extends Controller
                         'username'  => $user->username,
                         'password'  => $user->password,
                     ];
-                    var_dump($data);
+                    dd($data);  
 
                     if(Auth::attempt($data)){
                         return redirect('/wall');
