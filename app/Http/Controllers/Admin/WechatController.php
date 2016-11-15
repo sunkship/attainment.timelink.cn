@@ -90,12 +90,13 @@ class WechatController extends Controller
                         'username'  => $user->username,
                         'password'  => $user->password,
                     ];
+                    var_dump($data);
 
                     if(Auth::attempt($data)){
                         return redirect('/wall');
                     }else{
                         Flash::error(trans('front.login_fail'));
-                        return redirect('/login');
+                        return redirect('/WechatLogin');
                     }
                 } else return array(
                     'error code'=> 1002,

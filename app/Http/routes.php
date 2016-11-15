@@ -16,12 +16,12 @@ Route::group(array('middleware'=>['web'],'namespace'=>'Admin'),function(){
         if (Auth::guest()) return view('auth.login');
         else redirect('/wall');
     });
-    Route::get('login','AuthController@getLogin');
-    Route::post('login','AuthController@postLogin');
-    Route::get('logout','AuthController@getLogout');
-    Route::get('password','AuthController@getPassword');
-    Route::post('password','AuthController@postPassword');
-    Route::get('captcha/{config?}', '\Mews\Captcha\CaptchaController@getCaptcha');
+    Route::get('/login','AuthController@getLogin');
+    Route::post('/login','AuthController@postLogin');
+    Route::get('/logout','AuthController@getLogout');
+    Route::get('/password','AuthController@getPassword');
+    Route::post('/password','AuthController@postPassword');
+    Route::get('/captcha/{config?}', '\Mews\Captcha\CaptchaController@getCaptcha');
     Route::get('/WechatLogin','WechatController@loginAction');
     Route::get('/admin','AuthController@getAdminLogin');
 });
