@@ -42,7 +42,7 @@ class WechatController extends Controller
             $token_info = json_decode($access_token,true);
             $unionid = $token_info['unionid'];
             $openid = $token_info['openid'];
-
+dd($token_info);
             $user = User::where("unionid",$unionid)->first();
             if(!empty($user)){
                 Session::set('userId',$user->id);
