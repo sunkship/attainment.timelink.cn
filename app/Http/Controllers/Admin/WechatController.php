@@ -48,7 +48,8 @@ class WechatController extends Controller
                     $user_info_array = json_decode($user_info_json,true);
                     dump($user_info_array);
 
-                    $user = User::where("openid",$user_info_array['openid'])->where('unionid',$user_info_array['unionid'])->first();
+                    $user = User::where("openid",$user_info_array['openid'])
+                        ->where('unionid',$user_info_array['unionid'])->first();
                     dd($user);
                     if(!empty($user)){
                         $user->username     = $user_info_array['nickname'];
