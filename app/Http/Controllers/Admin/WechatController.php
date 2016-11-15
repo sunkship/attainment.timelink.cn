@@ -31,7 +31,7 @@ class WechatController extends Controller
     }
 
     public function receiveWechatCode($code){
-        $access_token = $this->getAccessToken($code);
+        $access_token = $this->access_token = $this->getAccessToken($code);
         $re = $this->wechat($access_token);
         if($re){
             return redirect('/wall');
@@ -44,9 +44,10 @@ class WechatController extends Controller
         if(!empty($access_token)){
             $token_info = json_decode($access_token,true);
             $openid = $token_info['openid'];
+
             if(!empty($this->refreshAccessToken())){
-                if($this->AuthAccessToken($access_token,$openid)){
-                    $user_info_json = $this->getuserinfo($access_token,$openid);
+                if($this->AuthAccessToken($this->access_token,$openid)){
+                    $user_info_json = $this->getuserinfo($this->access_token,$openid);
                     $user_info_array = json_decode($user_info_json,true);
                     $user = User::where("openid",$user_info_array['openid'])
                         ->where('unionid',$user_info_array['unionid'])->where('id','<>',1)->first();
@@ -94,6 +95,7 @@ class WechatController extends Controller
                 'error code'=> 1003,
                 'message'   => '无法获取refreshToken，请重试'
             );
+
         }else{
             return array(
                 'error code'=> 1002,
@@ -103,7 +105,6 @@ class WechatController extends Controller
     }
 
     private function signIn($username,$password){
-        dd('login');
         $data = [
             'username'  => $username,
             'password'  => $password,
