@@ -15,7 +15,8 @@ class WallController extends Controller
      * @return mixed
      */
     public function getWall(){
-        $attainments = Attainment::orderBy('id','desc')->paginate(10);
+        $urlSet = Attainment::groupby('url')->lists('url');
+        $attainments = Attainment::where('user_id',1)->wherein('url',$urlSet)->orderBy('id','desc')->paginate(10);
         return view('wall/attainmentWall', compact('attainments'));
     }
 
@@ -101,6 +102,7 @@ class WallController extends Controller
     public function newTarget(Request $request){
         $target = $request->get('target');
         Attainment::create([
+            'user_id'=>1,
             'url'   => $target,
         ]);
         return redirect('/wall');

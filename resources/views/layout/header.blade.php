@@ -2,14 +2,6 @@
     <div class="header">
         <div class="container">
             <div style="margin-top: 10px">
-                <a href="" class="pull-right" style="margin-left: 30px;margin-right: 30px">|</a>
-                <ul class="pull-right" style="color: #98fdf4;">
-                    @if(Auth::user()->id == 1)
-                        <li><a href="{{ url('/logout') }}" >{{ trans('front.logout') }}</a></li>
-                    @else
-                        <li><a href="{{ url('/login') }}" >{{ trans('front.login') }}</a></li>
-                    @endif
-                </ul>
             </div>
 
             <a href="" class="pull-right" style="margin-left: 30px;margin-right: 30px">|</a>
