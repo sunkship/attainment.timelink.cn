@@ -93,4 +93,26 @@ class WallController extends Controller
 
         return view('wall/overview',compact('attainments','recentDays','users','attainmentCount'));
     }
+
+    /**Create new attainment target
+     * @param Request $request
+     * @return mixed
+     */
+    public function newTarget(Request $request){
+        $target = $request->get('target');
+        Attainment::create([
+            'url'   => $target,
+        ]);
+        return redirect('/wall');
+    }
+
+    /**delete target
+     * @param Request $request
+     * @return mixed
+     */
+    public function deleteTarget(Request $request){
+        $target = $request->get('target');
+        Attainment::where('url',$target)->delete();
+        return redirect('/wall');
+    }
 }

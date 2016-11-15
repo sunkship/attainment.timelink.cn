@@ -22,7 +22,7 @@
                             <label for="input_target">输入目标网页：</label>
                             <input type="text" id="input_target" name="target" style="width: 60%" onchange="change_target()" required>
                             <div>
-                                <a id="target" href="">
+                                <a id="target" href="{{url('/newTarget')}}">
                                     <button class="btn btn-success">去写心得</button>
                                 </a>
                             </div>
@@ -36,6 +36,9 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             {{$attainment->created_at}}
+                            @if(Auth()->user()->username == 'admin')
+                            <a href="{{url('/delete')}}" style="float: right"></a>
+                            @endif
                         </div>
                         <div class="panel-body">
                             <a href="{{url('/target?target='.$attainment->url)}}">{{$attainment->url}}</a>
@@ -56,8 +59,7 @@
         var input;
         function change_target() {
             input = document.getElementById('input_target').value;
-            var target = document.getElementById('target').href = '/write?target='+ input;
-            console.log(target);
+            var target = document.getElementById('target').href = '/newTarget?target='+ input;
         }
     </script>
 @endsection
