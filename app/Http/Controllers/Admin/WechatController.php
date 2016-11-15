@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Auth;
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
+use Laracasts\Flash\Flash;
 
 class WechatController extends Controller
 {
@@ -63,12 +65,13 @@ class WechatController extends Controller
                         $user->gender       = $user_info_array['sex'];
                         $user->city         = $user_info_array['city'];
                         $user->province     = $user_info_array['province'];
+                        $user->password     = "123123";
 
                         if(!$user->save()){
-                            return response(array(
+                            return array(
                                 'error code'=> 1001,
                                 'message'   => '发生未知错误，请重试'
-                            ));
+                            );
                         }
                     }else{
                         $user = User::Create([
@@ -79,10 +82,21 @@ class WechatController extends Controller
                             'gender'    => $user_info_array['sex'],
                             'city'      => $user_info_array['city'],
                             'province'  => $user_info_array['province'],
+                            'password'  => "123123",
                         ]);
                     }
                     Session::set('userId',$user->id);
-                    return redirect('/wall');
+                    $data = [
+                        'username'  => $user->username,
+                        'password'  => $user->password,
+                    ];
+
+                    if(Auth::attempt($data)){
+                        return redirect('/wall');
+                    }else{
+                        Flash::error(trans('front.login_fail'));
+                        return redirect('/login');
+                    }
                 } else return array(
                     'error code'=> 1002,
                     'message'   => '获取token失败，请重试'
