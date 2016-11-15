@@ -15,8 +15,8 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('passport_id')->index();
-            $table->integer('openid');
-            $table->integer('unionid');
+            $table->string('openid');
+            $table->string('unionid');
             $table->string('gender');
             $table->string('city');
             $table->string('province');
