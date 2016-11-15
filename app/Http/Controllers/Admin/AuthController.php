@@ -11,7 +11,6 @@ use Laracasts\Flash\Flash;
 
 class AuthController extends AuthBaseController
 {
-
     public function getLogin(){
         return view('auth.login');
     }

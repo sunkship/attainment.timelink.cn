@@ -34,7 +34,7 @@
         {{--<li>|</li>--}}
         {{--<li><a href="{{ (App::getLocale()=='en')?"#":"?locale=en" }}" class="{{ (App::getLocale()=='en')?'active':'' }}">English</a></li>--}}
     </ul>
-    <form class="form-signin" action="{{ url('/get_code') }}" method="post">
+    <form class="form-signin" action="{{ url('/login') }}" method="post">
         <div class="form-signin-heading text-center">
             <img src="{{ asset("/images/attainment.bmp") }}" height="70px" style="margin-top: 20px;" alt=""/>
             <p style="text-align: center; font-size: 20px; margin-top: 10px">{{ trans('admin_page.attainment_wall') }}</p>
@@ -52,11 +52,11 @@
                     <input type="text" class="form-control" name="captcha" placeholder="{{ trans('admin_page.verify_code') }}" aria-describedby="basic-addon2" maxlength="4" required>
                     <a href="javascript:void (0);"  class="input-group-addon" id="basic-addon2"><img src="{{ captcha_src('flat') }}" id="verify-code"></a>
                 </div>
-            <a class="btn btn-login btn-block" herf="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc50e59d3bea57416&redirect_uri=http%3A%2F%2Fattainment.timelink.cn%2Fget_code&response_type=code&scope=snsapi_base&state=1#wechat_redirect">
+            <button class="btn btn-login btn-block" type="submit">
                 <i class="icon">
                     {{ trans('admin_page.login') }}
                 </i>
-            </a>
+            </button>
         </div>
     </form>
 </div>

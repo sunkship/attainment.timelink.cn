@@ -38,6 +38,7 @@ class WechatController extends Controller
     }
 
     private function wechat($access_token){
+        dd($access_token);
         if(!empty($access_token)){
             $token_info = json_decode($access_token,true);
             $unionid = $token_info['unionid'];
@@ -56,7 +57,7 @@ class WechatController extends Controller
                         $user->gender       = $user_info_array['sex'];
                         $user->city         = $user_info_array['city'];
                         $user->province     = $user_info_array['province'];
-                        $user->password     = "123123";
+                        $user->password     = bcrypt('123123');
 
                         if(!$user->save()){
                             return array(
@@ -73,12 +74,12 @@ class WechatController extends Controller
                             'gender'    => $user_info_array['sex'],
                             'city'      => $user_info_array['city'],
                             'province'  => $user_info_array['province'],
-                            'password'  => "123123",
+                            'password'  => bcrypt('123123'),
                         ]);
                     }
-                    $this->signIn($user->username,$user->password);
+                    $this->signIn($user->username,"123123");
                     Session::set('userId',$user->id);
-                    dd(Auth::check());
+                    dd($user->username,$user->password);
                     return redirect('/wall');
                 } else return array(
                     'error code'=> 1002,
