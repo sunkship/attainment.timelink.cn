@@ -80,17 +80,17 @@ class WallController extends Controller
         $attainmentCount = [];
         $index = 0;
         foreach ($users as $user){
-            $query = Attainment::where('user_id',$user->id);
             for($i = 0;$i<30;$i++) {
-                 $attainment = $query
-                    ->where('created_at','>',date("Y-m-d 00:00:00",strtotime("-".($i+1)."days")))
-                    ->where('created_at','<',date("Y-m-d 00:00:00",strtotime("-".($i)."days")))->first();
-                if (!empty($attainment)) $attainmentCount[$index][$i] = $attainment->content;
-                else $attainmentCount[$index][$i] = '';
+                 $attainments =  Attainment::where('user_id',$user->id)
+                     ->where('created_at','>',date("Y-m-d 00:00:00",strtotime("-".($i+1)."days")))
+                     ->where('created_at','<',date("Y-m-d 00:00:00",strtotime("-".($i)."days")))->get();
+                $attainmentCount[$index][$i] = 0;
+                foreach ($attainments as $attainment) {
+                    if (!empty($attainment)) $attainmentCount[$index][$i] += strlen($attainment->content);
+                }
             }
             $index++;
         }
-
         return view('wall/overview',compact('attainments','recentDays','users','attainmentCount'));
     }
 
