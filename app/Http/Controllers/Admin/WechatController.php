@@ -40,18 +40,16 @@ class WechatController extends Controller
     private function wechat($access_token){
         if(!empty($access_token)){
             $token_info = json_decode($access_token,true);
-            $unionid = $token_info['unionid'];
             $openid = $token_info['openid'];
-            $user = User::where("unionid",$unionid)->first();
 
             if(!empty($this->refreshAccessToken())){
                 if($this->AuthAccessToken($this->access_token,$openid)){
                     $user_info_json = $this->getuserinfo($this->access_token,$openid);
                     $user_info_array = json_decode($user_info_json,true);
 
+                    $user = User::where("openid",$user_info_array['openid'])->where('unionid',$user_info_array['unionid'])->first();
                     if(!empty($user)){
                         $user->username     = $user_info_array['nickname'];
-                        $user->openid       = $user_info_array['openid'];
                         $user->header_url   = $user_info_array['headimgurl'];
                         $user->gender       = $user_info_array['sex'];
                         $user->city         = $user_info_array['city'];
@@ -76,7 +74,6 @@ class WechatController extends Controller
                             'password'  => bcrypt('123123'),
                         ]);
                     }
-dd($user_info_array);
                     if($this->signIn($user->username,"123123")){
                         return redirect('/wall');
                     }else{
@@ -84,7 +81,6 @@ dd($user_info_array);
                         return redirect('/admin');
                     }
                     //Session::set('userId',$user->id);
-                    
                 } else return array(
                     'error code'=> 1002,
                     'message'   => '获取token失败，请重试'
