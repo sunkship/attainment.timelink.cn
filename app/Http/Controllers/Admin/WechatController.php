@@ -26,11 +26,11 @@ class WechatController extends Controller
             .'&redirect_uri='.$redirectURL.'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect';
 
         $code = $request->get('code');
-        if(empty($code)) {
+        if(empty($code)) return redirect($urlCode);
+        else {
             dd($code);
-            return redirect($urlCode);
+            return $this->receiveWechatCode($request);
         }
-        else return $this->receiveWechatCode($request);
     }
 
     public function receiveWechatCode(Request $request){
