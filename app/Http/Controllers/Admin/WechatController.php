@@ -21,16 +21,13 @@ class WechatController extends Controller
      * 微信登陆回调
      */
     public function loginAction(Request $request){
-        $redirectURL = 'http%3A%2F%2Fattainment.timelink.cn%2Fwall';
+        $redirectURL = 'http%3A%2F%2Fattainment.timelink.cn%2Flogin';
         $urlCode = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->WechatInfo['WECHAT_APPID']
             .'&redirect_uri='.$redirectURL.'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect';
 
         $code = $request->get('code');
         if(empty($code)) return redirect($urlCode);
-        else {
-            dd($code);
-            return $this->receiveWechatCode($request);
-        }
+        else return $this->receiveWechatCode($request);
     }
 
     public function receiveWechatCode(Request $request){
@@ -49,8 +46,8 @@ class WechatController extends Controller
                 if($this->AuthAccessToken($this->access_token,$openid)){
                     $user_info_json = $this->getuserinfo($this->access_token,$openid);
                     $user_info_array = json_decode($user_info_json,true);
-                    $user = User::where('id','<>',1)->where("openid",$user_info_array['openid'])
-                        ->where('unionid',$user_info_array['unionid'])->first();
+                    $user = User::where("openid",$user_info_array['openid'])
+                        ->where('unionid',$user_info_array['unionid'])->where('id','<>',1)->first();
                     
                     if(!empty($user)){
                         $user->username     = $user_info_array['nickname'];
