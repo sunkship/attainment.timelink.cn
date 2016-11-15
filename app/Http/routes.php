@@ -14,7 +14,7 @@
 Route::group(array('middleware'=>['web'],'namespace'=>'Admin'),function(){
     Route::get('/', function () {
         if (Auth::guest()) return view('auth.login');
-        else redirect('/wall');
+        else return redirect('/wall');
     });
     Route::get('/login','AuthController@getLogin');
     Route::post('/login','AuthController@postLogin');
