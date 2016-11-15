@@ -42,10 +42,11 @@ class WechatController extends Controller
             $token_info = json_decode($access_token,true);
             $unionid = $token_info['unionid'];
             $openid = $token_info['openid'];
-dd($token_info);
             $user = User::where("unionid",$unionid)->first();
+
             if(!empty($user)){
                 Session::set('userId',$user->id);
+                $this->signIn($user->username,$user->password);
                 return redirect('/wall');
             }else{
                 $user = User::create([
@@ -87,18 +88,7 @@ dd($user);
                         ]);
                     }
                     Session::set('userId',$user->id);
-                    $data = [
-                        'username'  => $user->username,
-                        'password'  => $user->password,
-                    ];
-                    dd($data);  
 
-                    if(Auth::attempt($data)){
-                        return redirect('/wall');
-                    }else{
-                        Flash::error(trans('front.login_fail'));
-                        return redirect('/WechatLogin');
-                    }
                 } else return array(
                     'error code'=> 1002,
                     'message'   => '获取token失败，请重试'
@@ -113,6 +103,19 @@ dd($user);
                 'error code'=> 1002,
                 'message'   => '获取token失败，请重试'
             );
+        }
+    }
+
+    private function signIn($username,$password){
+        $data = [
+            'username'  => $username,
+            'password'  => $password,
+        ];
+        if(Auth::attempt($data)){
+            return redirect('/wall');
+        }else{
+            Flash::error(trans('front.login_fail'));
+            return redirect('/WechatLogin');
         }
     }
 
