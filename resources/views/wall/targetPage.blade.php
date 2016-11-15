@@ -9,17 +9,14 @@
 
 @section('content')
 
-    <div class="col-lg-8 col-md-8 col-sm-8" style="float: left">
-        <iframe  frameborder="0" src="{{ url($target) }}" scrolling="auto"  width="100%"  height="100%" name="targetFrame" >
-        </iframe>
-    </div>
-    <div  class="col-lg-4 col-md-4 col-sm-4"  style="float: left;align-content: center;background-color: #656568;min-height: 100%">
+    <iframe class="col-lg-12 col-md-12 col-sm-12" frameborder="0" src="{{ url($target) }}" width="100%"  height="100%" name="targetFrame" >
+    </iframe>
 
+    <div  class="col-lg-12 col-md-12 col-sm-12"  style="float: left;align-content: center;background-color: #656568;min-height: 100%">
         <div class="container col-lg-12 col-md-12 col-sm-12" style="margin-top:5px;">
             <form action="{{ url('/write') }}" method="post">
                 <div style="align-content: center">
                     <label class="" for="attainment" style="font-size: 25px;color:#2ca02c;">{{trans('admin_page.opinion')}}</label>
-                    <div id="divEditor"></div>
                     <textarea class="col-lg-12 col-md-12 col-sm-12" name="attainment" id="attainment" cols="77" rows="10" required>
                         @if(!empty($old))
                             {{$old}}
