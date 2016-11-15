@@ -16,11 +16,11 @@
         <div class="container col-lg-12 col-md-12 col-sm-12" style="margin-top:5px;">
             <form action="{{ url('/write') }}" method="post">
                 <div style="align-content: center">
-                    <div>
-                        <label class="" for="attainment" style="font-size: 25px;color:#2ca02c;">{{trans('admin_page.opinion')}}</label>
-                    </div>
-                    <textarea class="col-lg-12 col-md-12 col-sm-12" name="attainment" id="attainment"  rows="10" required>
-                        @if(!empty($old)){{$old}}@endif
+                    <label class="" for="attainment" style="font-size: 25px;color:#2ca02c;">{{trans('admin_page.opinion')}}</label>
+                    <textarea class="col-lg-12 col-md-12 col-sm-12" name="attainment" id="attainment" rows="10" required>
+                        @if(!empty($old))
+                            {{$old}}
+                        @endif
                     </textarea>
                 </div>
 
@@ -51,4 +51,14 @@
 @section('js')
     <script src="{{asset('/js/wangEditor-1.3.13')}}" type="text/javascript"></script>
 
+    <script>
+        $(function () {
+            $('#divEditor').wangEditor({
+                codeTargetId: 'txtCode',			  //将源码存储到txtCode
+                frameHeight: '300px',				 //默认值为“300px”
+                initWords: '欢迎使用！请输入文字...',  //默认值为“请输入...”
+                showInfo: true						//是否显示“关于”菜单，默认显示
+            });
+        });
+    </script>
 @endsection
