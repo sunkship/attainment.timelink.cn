@@ -43,7 +43,7 @@
                     @foreach($attainments as $attainment)
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            {{$attainment->created_at}}
+                            {{$attainment->date}}
                             @if(Auth()->user()->username == 'admin')
                             <a href="{{url('/delete')}}" style="float: right"></a>
                             @endif
