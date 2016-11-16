@@ -41,7 +41,7 @@
                             @endif
                         </div>
                         <div class="panel-body">
-                            <a href="{{url('/target?target='.$attainment->url)}}">{{$attainment->url}}</a>
+                            <a href="{{url('/target?'.$attainment->url)}}">{{urldecode($attainment->url)}}</a>
                         </div>
                     </div>
                     @endforeach
@@ -59,6 +59,8 @@
         var input;
         function change_target() {
             input = document.getElementById('input_target').value;
+            console.log(input);
+//            encodeURI(input);
             var target = document.getElementById('target').href = '/newTarget?target='+ input;
         }
     </script>

@@ -12,19 +12,19 @@
     <iframe class="col-lg-12 col-md-12 col-sm-12" frameborder="0" src="{{ url($target) }}" width="100%"  height="400px" name="targetFrame" >
     </iframe>
 
-    <div  class="col-lg-12 col-md-12 col-sm-12"  style="float: left;align-content: center;background-color: #656568;min-height: 100%">
-        <div class="container col-lg-12 col-md-12 col-sm-12" style="margin-top:5px;">
+    <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  style="align-content: center;background-color: #656568;min-height: 100%">
+        <div class="container col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin-top:5px;">
             <form action="{{ url('/write') }}" method="post">
                 <div style="align-content: center">
                     <div>
                         <label class="" for="attainment" style="font-size: 25px;color:#2ca02c;">{{trans('admin_page.opinion')}}</label>
                     </div>
-                    <textarea class="col-lg-12 col-md-12 col-sm-12" name="attainment" id="attainment"  rows="10" required>@if(!empty($old)){{$old}}@endif</textarea>
+                    <textarea class="form-control" name="attainment" id="attainment"  rows="10" required>@if(!empty($old)){{$old}}@endif</textarea>
                 </div>
 
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="target" value="{{ $target }}">
-                <button class="btn col-lg-12 col-md-12 col-sm-12" type="submit">
+                <button class="btn col-lg-12 col-md-12 col-sm-12 col-xs-12" type="submit">
                     {{ trans('admin_page.write') }}
                 </button>
             </form>

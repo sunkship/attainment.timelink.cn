@@ -25,7 +25,9 @@ class WallController extends Controller
      * @return mixed
      */
     public function getTarget(Request $request){
-        $target = $request->get('target');
+        $target = http_build_query($request->all());
+        $target = (urldecode($target));
+        $target = substr($target,7);
         $attainments = Attainment::where('url',$target)->get();
         $users = [];
         $old = '';
@@ -100,7 +102,7 @@ class WallController extends Controller
      * @return mixed
      */
     public function newTarget(Request $request){
-        $target = $request->get('target');
+        $target = http_build_query($_REQUEST);
         Attainment::create([
             'user_id'=>1,
             'url'   => $target,
