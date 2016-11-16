@@ -17,6 +17,8 @@ class CreateAttainmentTable extends Migration
             $table->integer('user_id');
             $table->longText('url');
             $table->longText('content');
+            $table->text('name');
+            $table->date('date');
             $table->timestamps();
         });
     }
