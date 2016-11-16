@@ -43,7 +43,6 @@ class WallController extends Controller
                 else return ($content["未知用户"] = $attainment->content);
             }
         else return ($content["错误"]="获取心得失败");
-
         return view('wall/targetPage', compact('target','attainments','users','old'));
     }
 
@@ -102,10 +101,12 @@ class WallController extends Controller
      * @return mixed
      */
     public function newTarget(Request $request){
-        $target = http_build_query($_REQUEST);
+        $target = $request->get('target');
         Attainment::create([
-            'user_id'=>1,
-            'url'   => $target,
+            'user_id'   =>1,
+            'url'       => $target,
+            'name'      => $request->get('name'),
+            'date'      => $request->get('date'),
         ]);
         return redirect('/wall');
     }
