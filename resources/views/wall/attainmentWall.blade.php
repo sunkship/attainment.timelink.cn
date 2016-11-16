@@ -40,7 +40,7 @@
                             <a href="{{url('/delete')}}" style="float: right"></a>
                             @endif
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" style="overflow-wrap: break-word;">
                             <a href="{{url('/target?'.$attainment->url)}}">{{urldecode($attainment->url)}}</a>
                         </div>
                     </div>
