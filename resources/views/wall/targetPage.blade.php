@@ -9,7 +9,7 @@
 
 @section('content')
 
-    <iframe class="col-lg-12 col-md-12 col-sm-12" frameborder="0" src="{{ url($target) }}" width="100%"  height="400px" name="targetFrame" >
+    <iframe class="col-lg-12 col-md-12 col-sm-12" frameborder="0"  width="100%"  height="400px" name="targetFrame" >
     </iframe>
 
     <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  style="align-content: center;background-color: #656568;">
@@ -56,15 +56,24 @@
             }
         });
 
-        {{--$.get(--}}
-                {{--share_link,--}}
-                {{--function (response) {--}}
-                    {{--console.log("> ", response);--}}
-                    {{--var html = response;--}}
-                    {{--html=html.replace(/data-src/g, "src");--}}
-                    {{--var html_src = 'data:text/html;charset=utf-8,' + html;--}}
-                    {{--$("iframe").attr("src" , html_src);--}}
-                {{--}--}}
-        {{--);--}}
+        $(document).ready(function(){
+
+        });
+
+
+
+        $.get(
+                share_link,
+                function (response) {
+                    //console.log("> ", response);
+                    //console.log(response);
+                    var html = response;
+                    $(response).find('img').each(function(){
+                        $(this).attr('src',$(this).data('src'))
+                    });
+                    $("iframe").attr("srcdoc" , response);
+                },
+                'html'
+        );
     </script>
 @endsection
