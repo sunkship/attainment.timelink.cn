@@ -6,6 +6,7 @@ Homestead.json
 .env
 .gitattributes
 .idea/
+bootstrap/
 phpunit.xml
 readme.md
 server.php
