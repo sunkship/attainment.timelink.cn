@@ -18,7 +18,6 @@
             <form action="{{ url('/write') }}" method="post">
                 <div style="align-content: center">
                     <label class="label" for="attainment" style="font-size: 30px;color:#2ca02c;">{{trans('admin_page.opinion')}}</label>
-                    <div id="divEditor"></div>
                     <textarea name="attainment" id="attainment" cols="76" rows="30" required></textarea>
                 </div>
 
@@ -39,13 +38,5 @@
     <script src="{{asset('/js/wangEditor-1.3.13.js')}}" type="text/javascript"></script>
 
     <script>
-        $(function () {
-//            $('#divEditor').wangEditor({
-//                codeTargetId: 'txtCode',			  //将源码存储到txtCode
-//                frameHeight: '300px',				 //默认值为“300px”
-//                initWords: '欢迎使用！请输入文字...',  //默认值为“请输入...”
-//                showInfo: true						//是否显示“关于”菜单，默认显示
-//            });
-        });
     </script>
 @endsection
