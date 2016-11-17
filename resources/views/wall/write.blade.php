@@ -9,11 +9,11 @@
 
 @section('content')
 
-    <div style="width: 70%;float: left">
+    <div>
         <iframe  frameborder="0" src="{{ url($target) }}" scrolling="auto"  width="100%"  height="100%" name="targetFrame" >
         </iframe>
     </div>
-    <div style="width: 30%;float: left;align-content: center;background-color: #656568;min-height: 100%">
+    <div style="background-color: #656568">
         <div class="form" style="padding-left: 3px">
             <form action="{{ url('/write') }}" method="post">
                 <div style="align-content: center">
