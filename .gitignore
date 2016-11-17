@@ -11,3 +11,4 @@ phpunit.xml
 readme.md
 server.php
 tests/
+composer.lock
