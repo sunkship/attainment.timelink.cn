@@ -48,23 +48,23 @@
 
 @section('js')
     <script>
-        var share_link='<?php echo $target?>';
-        $.ajaxPrefilter( function (options) {
-            if (options.crossDomain && jQuery.support.cors) {
-                var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
-                options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
-            }
-        });
+        {{--var share_link='<?php echo $target?>';--}}
+        {{--$.ajaxPrefilter( function (options) {--}}
+            {{--if (options.crossDomain && jQuery.support.cors) {--}}
+                {{--var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');--}}
+                {{--options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;--}}
+            {{--}--}}
+        {{--});--}}
 
-        $.get(
-                share_link,
-                function (response) {
-                    console.log("> ", response);
-                    var html = response;
-                    html=html.replace(/data-src/g, "src");
-                    var html_src = 'data:text/html;charset=utf-8,' + html;
-                    $("iframe").attr("src" , html_src);
-                }
-        );
+        {{--$.get(--}}
+                {{--share_link,--}}
+                {{--function (response) {--}}
+                    {{--console.log("> ", response);--}}
+                    {{--var html = response;--}}
+                    {{--html=html.replace(/data-src/g, "src");--}}
+                    {{--var html_src = 'data:text/html;charset=utf-8,' + html;--}}
+                    {{--$("iframe").attr("src" , html_src);--}}
+                {{--}--}}
+        {{--);--}}
     </script>
 @endsection
