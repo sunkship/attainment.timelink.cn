@@ -9,7 +9,7 @@
 
 @section('content')
 
-    <iframe class="col-lg-12 col-md-12 col-sm-12" frameborder="0" src="" width="100%"  height="400px" name="targetFrame" >
+    <iframe class="col-lg-12 col-md-12 col-sm-12" frameborder="0" src="{{ url($target) }}" width="100%"  height="400px" name="targetFrame" >
     </iframe>
 
     <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  style="align-content: center;background-color: #656568;min-height: 100%">
