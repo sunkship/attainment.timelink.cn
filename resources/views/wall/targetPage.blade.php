@@ -13,7 +13,7 @@
     </iframe>
 
     <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  style="align-content: center;background-color: #656568;min-height: 100%">
-        <div class="container col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin-top:5px;">
+        <div class="container" style="margin-top:5px;">
             <form action="{{ url('/write') }}" method="post">
                 <div style="align-content: center">
                     <div>
@@ -30,7 +30,7 @@
             </form>
         </div>
 
-        <div class="container col-lg-12 col-md-12 col-sm-12" style="margin-top: 24px;">
+        <div class="container" style="margin-top: 24px;">
         @for($i = 0;$i < sizeof($attainments);$i++)
             <div class="panel panel-primary">
                 <div class="panel-heading">
