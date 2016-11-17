@@ -12,7 +12,7 @@
     <iframe class="col-lg-12 col-md-12 col-sm-12" frameborder="0" src="{{ url($target) }}" width="100%"  height="400px" name="targetFrame" >
     </iframe>
 
-    <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  style="align-content: center;background-color: #656568;min-height: 100%">
+    <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  style="align-content: center;background-color: #656568;">
         <div class="container" style="margin-top:5px;">
             <form action="{{ url('/write') }}" method="post">
                 <div style="align-content: center">
