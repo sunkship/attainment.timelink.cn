@@ -35,8 +35,6 @@
 @endsection
 
 @section('js')
-    <script src="{{asset('/js/wangEditor-1.3.13.js')}}" type="text/javascript"></script>
-
     <script>
     </script>
 @endsection
